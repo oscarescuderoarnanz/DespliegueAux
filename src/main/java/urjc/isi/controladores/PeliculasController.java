@@ -71,6 +71,7 @@ public class PeliculasController {
 			value = Double.parseDouble(cadena);
 			output = ps.getAllPeliculasByDuration(value);
 		}else
+			result = "Mensajesssssssssssssssssss";
 			output = ps.getAllPeliculas();
 		if(request.queryParams("format")!= null && request.queryParams("format").equals("json")) {
 			response.type("application/json");
