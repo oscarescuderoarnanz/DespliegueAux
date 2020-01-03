@@ -87,7 +87,8 @@ public class PeliculasController {
 	public static String selectDuration(Request request, Response response) throws SQLException {
 		List<Peliculas> output;
 		String result = "";
-		output = ps.getAllPeliculas();
+		double value = 139.0;
+		output = ps.getAllPeliculasByDuration(value);
 		for(int i = 0; i < output.size(); i++) {
 		    result = result + output.get(i).toHTMLString() +"</br>";
 		}
