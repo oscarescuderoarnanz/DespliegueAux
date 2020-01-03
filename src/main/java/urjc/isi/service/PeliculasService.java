@@ -75,7 +75,7 @@ public class PeliculasService {
 	 * @return Lista de peliculas de la tabla Peliculas
 	 * @throws SQLException
 	 */
-	public List<Peliculas> getAllPeliculasByDuration(int value){
+	public List<Peliculas> getAllPeliculasByDuration(float value){
 		PeliculasDAOImpl pelisDAO = new PeliculasDAOImpl();
 		List<Peliculas> result = pelisDAO.selectAllWhereDuration(value);
 		pelisDAO.close();

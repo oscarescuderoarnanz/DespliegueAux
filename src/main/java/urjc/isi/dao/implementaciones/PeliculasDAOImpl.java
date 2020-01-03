@@ -170,7 +170,7 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 	}
 	
 	@Override
-	public List<Peliculas> selectAllWhereDuration(int value) {
+	public List<Peliculas> selectAllWhereDuration(float value) {
 	  List<Peliculas> filmList = new ArrayList<>();
 	  String sql = "SELECT * from peliculas" +
 			  "where a.duracion="+value;
