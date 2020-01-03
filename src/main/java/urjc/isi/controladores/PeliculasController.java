@@ -63,9 +63,10 @@ public class PeliculasController {
 		String cadena = "";
 		double value;
 		String result = "";
-		if(request.queryParams("actor")!= null)
+		if(request.queryParams("actor")!= null) {
+			result = "Mensaje";
 			output = ps.getAllPeliculasByActor(request.queryParams("actor"));
-		else if(request.queryParams("select_time")!= null) {
+		}else if(request.queryParams("select_time")!= null) {
 			cadena = request.queryParams("select_time");
 			value = Double.parseDouble(cadena);
 			output = ps.getAllPeliculasByDuration(value);
