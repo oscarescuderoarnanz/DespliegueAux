@@ -60,22 +60,32 @@ public class PeliculasController {
 	 */
 	public static String selectAllPeliculas(Request request, Response response) throws SQLException {
 		List<Peliculas> output;
+		String cadena = "";
+		int value;
 		String result = "";
-		double value = 139.0;
-		output = ps.getAllPeliculas(value);
-		for(int i = 0; i < output.size(); i++) {
-		    result = result + output.get(i).toHTMLString() +"</br>";
-		}
-		return result;
-	}
-	
-	public static String selectDuration(Request request, Response response) throws SQLException {
-		List<Peliculas> output;
-		String result = "";
-		double value = 139.0;
-		output = ps.getAllPeliculasByDuration(value);
-		for(int i = 0; i < output.size(); i++) {
-		    result = result + output.get(i).toHTMLString() +"</br>";
+		if(request.queryParams("actor")!= null)
+			output = ps.getAllPeliculasByActor(request.queryParams("actor"));
+		else if(request.queryParams("select_time")!= null) {
+			cadena = request.queryParams("select_time");
+			value = Integer.parseInt(cadena);
+			output = ps.getAllPeliculasByDuration(value);
+		}else
+			output = ps.getAllPeliculas();
+		if(request.queryParams("format")!= null && request.queryParams("format").equals("json")) {
+			response.type("application/json");
+			JsonObject json = new JsonObject();
+			json.addProperty("status", "SUCCESS");
+			json.addProperty("serviceMessage", "La peticion se manejo adecuadamente");
+			JsonArray array = new JsonArray();
+			for(int i = 0; i < output.size(); i++) {
+				array.add(output.get(i).toJSONObject());;
+			}
+			json.add("output", array);
+			result = json.toString();
+		}else {
+			for(int i = 0; i < output.size(); i++) {
+			    result = result + output.get(i).toHTMLString() +"</br>";
+			}
 		}
 		return result;
 	}
@@ -85,7 +95,6 @@ public class PeliculasController {
 	 */
 	public void peliculasHandler() {
 		//get("/crearTabla", AdminController::crearTablaPeliculas);
-		get("/selectDuration", PeliculasController::selectDuration);
 		get("/selectAll", PeliculasController::selectAllPeliculas);
 		get("/uploadTable", PeliculasController::uploadTable);
 		post("/upload", PeliculasController::upload);

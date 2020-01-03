@@ -22,7 +22,7 @@ public class Main {
 	 * @throws URISyntaxException
 	 */
 	public static String defaultResponse(Request request, Response response) throws ClassNotFoundException, URISyntaxException {
-       String result = new String(" THANKS!");
+       String result = new String("THANKS for nothing!");
        return result;
     }
 
