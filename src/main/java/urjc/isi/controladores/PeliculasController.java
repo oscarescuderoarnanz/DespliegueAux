@@ -60,18 +60,10 @@ public class PeliculasController {
 	 */
 	public static String selectAllPeliculas(Request request, Response response) throws SQLException {
 		List<Peliculas> output;
-		String cadena = "";
-		double value;
 		String result = "";
-		if(request.queryParams("actor")!= null) {
-			result = "Mensaje";
+		if(request.queryParams("actor")!= null)
 			output = ps.getAllPeliculasByActor(request.queryParams("actor"));
-		}else if(request.queryParams("select_time")!= null) {
-			cadena = request.queryParams("select_time");
-			value = Double.parseDouble(cadena);
-			output = ps.getAllPeliculasByDuration(value);
-		}else
-			result = "Mensajesssssssssssssssssss";
+		else
 			output = ps.getAllPeliculas();
 		if(request.queryParams("format")!= null && request.queryParams("format").equals("json")) {
 			response.type("application/json");
@@ -83,13 +75,39 @@ public class PeliculasController {
 				array.add(output.get(i).toJSONObject());;
 			}
 			json.add("output", array);
-			result += json.toString();
+			result = json.toString();
 		}else {
 			for(int i = 0; i < output.size(); i++) {
-			    result += result + output.get(i).toHTMLString() +"</br>";
+			    result = result + output.get(i).toHTMLString() +"</br>";
 			}
 		}
 		return result;
+	}
+	
+	public static String selectDuration(Request request, Response response) throws SQLException {
+		String result = "";
+		List<Peliculas> output;
+		
+		output = ps.getAllPeliculas();
+		
+		if(request.queryParams("format")!= null && request.queryParams("format").equals("json")) {
+			response.type("application/json");
+			JsonObject json = new JsonObject();
+			json.addProperty("status", "SUCCESS");
+			json.addProperty("serviceMessage", "La peticion se manejo adecuadamente");
+			JsonArray array = new JsonArray();
+			for(int i = 0; i < output.size(); i++) {
+				array.add(output.get(i).toJSONObject());;
+			}
+			json.add("output", array);
+			result = json.toString();
+		}else {
+			for(int i = 0; i < output.size(); i++) {
+			    result = result + output.get(i).toHTMLString() +"</br>";
+			}
+		}
+		return result;
+		
 	}
 
 	/**
@@ -98,6 +116,7 @@ public class PeliculasController {
 	public void peliculasHandler() {
 		//get("/crearTabla", AdminController::crearTablaPeliculas);
 		get("/selectAll", PeliculasController::selectAllPeliculas);
+		get("/selectDuration", PeliculasController::selectDuration);
 		get("/uploadTable", PeliculasController::uploadTable);
 		post("/upload", PeliculasController::upload);
 	}
