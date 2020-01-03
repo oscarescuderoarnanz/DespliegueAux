@@ -92,7 +92,6 @@ public class PeliculasController {
 		    result = result + output.get(i).toHTMLString() +"</br>";
 		}
 		return result;
-		
 	}
 
 	/**
@@ -100,8 +99,8 @@ public class PeliculasController {
 	 */
 	public void peliculasHandler() {
 		//get("/crearTabla", AdminController::crearTablaPeliculas);
-		get("/selectAll", PeliculasController::selectAllPeliculas);
 		get("/selectDuration", PeliculasController::selectDuration);
+		get("/selectAll", PeliculasController::selectAllPeliculas);
 		get("/uploadTable", PeliculasController::uploadTable);
 		post("/upload", PeliculasController::upload);
 	}
