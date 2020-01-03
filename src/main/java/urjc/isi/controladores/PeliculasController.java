@@ -61,25 +61,10 @@ public class PeliculasController {
 	public static String selectAllPeliculas(Request request, Response response) throws SQLException {
 		List<Peliculas> output;
 		String result = "";
-		if(request.queryParams("actor")!= null)
-			output = ps.getAllPeliculasByActor(request.queryParams("actor"));
-		else
-			output = ps.getAllPeliculas();
-		if(request.queryParams("format")!= null && request.queryParams("format").equals("json")) {
-			response.type("application/json");
-			JsonObject json = new JsonObject();
-			json.addProperty("status", "SUCCESS");
-			json.addProperty("serviceMessage", "La peticion se manejo adecuadamente");
-			JsonArray array = new JsonArray();
-			for(int i = 0; i < output.size(); i++) {
-				array.add(output.get(i).toJSONObject());;
-			}
-			json.add("output", array);
-			result = json.toString();
-		}else {
-			for(int i = 0; i < output.size(); i++) {
-			    result = result + output.get(i).toHTMLString() +"</br>";
-			}
+		double value = 139.0;
+		output = ps.getAllPeliculasByDuration(value);
+		for(int i = 0; i < output.size(); i++) {
+		    result = result + output.get(i).toHTMLString() +"</br>";
 		}
 		return result;
 	}
