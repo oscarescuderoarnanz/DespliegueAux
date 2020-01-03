@@ -69,6 +69,18 @@ public class PeliculasService {
 		pelisDAO.close();
 		return result;
 	}
+	
+	/**
+	 * Metodo encargado de procesar un la salida de todas la lista con un valor de tiempo dado
+	 * @return Lista de peliculas de la tabla Peliculas
+	 * @throws SQLException
+	 */
+	public List<Peliculas> getAllPeliculasByDuration(int value){
+		PeliculasDAOImpl pelisDAO = new PeliculasDAOImpl();
+		List<Peliculas> result = pelisDAO.selectAllWhereDuration(value);
+		pelisDAO.close();
+		return result;
+	}
 
 	/** Procesa todas las peliculas de un director **/
 	public List<Peliculas> getAllPeliculasbyDirector(String name){

@@ -60,10 +60,16 @@ public class PeliculasController {
 	 */
 	public static String selectAllPeliculas(Request request, Response response) throws SQLException {
 		List<Peliculas> output;
+		String cadena = "";
+		int value;
 		String result = "";
 		if(request.queryParams("actor")!= null)
 			output = ps.getAllPeliculasByActor(request.queryParams("actor"));
-		else
+		else if(request.queryParams("select_time")!= null) {
+			cadena = request.queryParams("select_time");
+			value = Integer.parseInt(cadena);
+			output = ps.getAllPeliculasByDuration(value);
+		}else
 			output = ps.getAllPeliculas();
 		if(request.queryParams("format")!= null && request.queryParams("format").equals("json")) {
 			response.type("application/json");
