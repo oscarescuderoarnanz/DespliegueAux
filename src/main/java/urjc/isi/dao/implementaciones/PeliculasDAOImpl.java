@@ -132,48 +132,9 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 	}
 	
 	@Override
-	public List<Peliculas> selectAllWhereDirector(String name) {
+	public List<Peliculas> selectAllDuration(double value) {
 	  List<Peliculas> filmList = new ArrayList<>();
-	  String sql = "SELECT * from peliculas as p " +
-			  "Inner join peliculasdirectores as pa on p.idpelicula=pa.idpelicula " +
-			  "Inner join directores as a on pa.idpersona=a.idpersona "+
-			  "where a.fullnombre="+"'"+name+"'";
-	  try (PreparedStatement pstmt = c.prepareStatement(sql)) {
-		  ResultSet rs = pstmt.executeQuery();
-		  c.commit();
-		  while(rs.next()){
-			  filmList.add(fromResultSet(rs));
-		  }
-	  } catch (SQLException e) {
-		  System.out.println(e.getMessage());
-	  }
-	  return filmList;
-	}
-
-	@Override
-	public List<Peliculas> selectAllWhereGuionista(String name) {
-	  List<Peliculas> filmList = new ArrayList<>();
-	  String sql = "SELECT * from guionistas as p " +
-			  "Inner join peliculasguionistas as pa on p.idpelicula=pa.idpelicula " +
-			  "Inner join guionistas as a on pa.idpersona=a.idpersona "+
-			  "where a.fullnombre="+"'"+name+"'";
-	  try (PreparedStatement pstmt = c.prepareStatement(sql)) {
-		  ResultSet rs = pstmt.executeQuery();
-		  c.commit();
-		  while(rs.next()){
-			  filmList.add(fromResultSet(rs));
-		  }
-	  } catch (SQLException e) {
-		  System.out.println(e.getMessage());
-	  }
-	  return filmList;
-	}
-	
-	@Override
-	public List<Peliculas> selectAllWhereDuration(int value) {
-	  List<Peliculas> filmList = new ArrayList<>();
-	  String sql = "SELECT * from peliculas" +
-			  "where a.duracion="+value;
+	  String sql = "SELECT duracion from peliculas";
 	  try (PreparedStatement pstmt = c.prepareStatement(sql)) {
 		  ResultSet rs = pstmt.executeQuery();
 		  c.commit();

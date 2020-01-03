@@ -22,10 +22,10 @@ public class Main {
 	 * @throws URISyntaxException
 	 */
 	public static String defaultResponse(Request request, Response response) throws ClassNotFoundException, URISyntaxException {
-       String result = new String("THANKS for nothing!");
+       String result = new String("prueba 1, sacar duraciones solo de pelis con path distinto");
        return result;
     }
-
+	
 	/**
 	 * Este metodo es un gestor de los endpoints asociados a cada una de las tablas de la base de datos
 	 */
@@ -42,24 +42,8 @@ public class Main {
     		PeliculasActoresController Controller = new PeliculasActoresController();
     		Controller.peliculasActoresHandler();
     	});
-	path("directores", () ->{
-		DirectoresController Controller = new DirectoresController();
-		Controller.directoresHandler();
-	});
-	path("guionistas", () ->{
-		GuionistasController Controller = new GuionistasController();
-		Controller.guionistasHandler();
-	});
-	path("peliculasdirectores", () ->{
-		PeliculasDirectoresController Controller = new PeliculasDirectoresController();
-		Controller.peliculasDirectoresHandler();
-	});
-	path("peliculasguionistas", () ->{
-		PeliculasGuionistasController Controller = new PeliculasGuionistasController();
-		Controller.peliculasGuionistasHandler();
-	});
     }
-
+    
     public static void main(String[] args) throws ClassNotFoundException,SQLException {
         port(getHerokuAssignedPort());
         get("/welcome", Main::defaultResponse);
