@@ -51,9 +51,9 @@ public class PeliculasService {
 	 * @return Lista de actores de la tabla Peliculas
 	 * @throws SQLException
 	 */
-	public List<Peliculas> getAllPeliculas() throws SQLException{
+	public List<Peliculas> getAllPeliculas(double value) throws SQLException{
 		PeliculasDAOImpl pelisDAO = new PeliculasDAOImpl();
-		List<Peliculas> result = pelisDAO.selectAll();
+		List<Peliculas> result = pelisDAO.selectAllWhereDuration(value);
 		pelisDAO.close();
 		return result;
 	}

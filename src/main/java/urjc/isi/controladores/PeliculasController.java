@@ -62,7 +62,7 @@ public class PeliculasController {
 		List<Peliculas> output;
 		String result = "";
 		double value = 139.0;
-		output = ps.getAllPeliculasByDuration(value);
+		output = ps.getAllPeliculas(value);
 		for(int i = 0; i < output.size(); i++) {
 		    result = result + output.get(i).toHTMLString() +"</br>";
 		}
