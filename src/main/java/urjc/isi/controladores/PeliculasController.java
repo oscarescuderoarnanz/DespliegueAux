@@ -83,10 +83,10 @@ public class PeliculasController {
 				array.add(output.get(i).toJSONObject());;
 			}
 			json.add("output", array);
-			result = json.toString();
+			result += json.toString();
 		}else {
 			for(int i = 0; i < output.size(); i++) {
-			    result = result + output.get(i).toHTMLString() +"</br>";
+			    result += result + output.get(i).toHTMLString() +"</br>";
 			}
 		}
 		return result;
