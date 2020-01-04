@@ -89,7 +89,10 @@ public class PeliculasController {
 					output = ps.getAllPeliculasByDuration(t1,0);
 				}else if(FirstCaracteres == signomenor) {
 					result = "entramos en menor:\n " + result; 
-					output = ps.getAllPeliculasByDuration(0,0);
+					String[] partsmenor = query.split("<");
+					String time1 = partsmenor[1];
+					double t1 = Double.parseDouble(time1);
+					output = ps.getAllPeliculasByDuration(t1,0);
 				}else {
 					result = "query erronea, pruebe a introducir ?time=num1-num2 ; donde num1 y num2 son números <br/>" + result;
 					output = ps.getAllPeliculasByDuration(0,0);
