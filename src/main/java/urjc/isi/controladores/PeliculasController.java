@@ -98,15 +98,13 @@ public class PeliculasController {
 		
 		output = ps.getAllPeliculasByDuration(139.0);
 	
-		
 		for(int i = 0; i < output.size(); i++) {
 			cadena = output.get(i).toHTMLString();
-			String[] parts = cadena.split("\t");
-			cadena = parts[2];
-			String[] partes = cadena.split(" ");
-			cadena = partes[1];
+			//String[] parts = cadena.split("\t");
+			//cadena = parts[2];
+			//String[] partes = cadena.split(" ");
+			//cadena = partes[1];
 		    result = result + cadena +"</br>";
-		    //result = result + "entramos";
 		}
 		
 		return result;
