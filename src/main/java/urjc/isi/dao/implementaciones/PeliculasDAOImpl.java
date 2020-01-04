@@ -33,7 +33,7 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 	@Override
 	public void createTable() throws SQLException{
 		Statement statement = c.createStatement();
-		statement.executeUpdate("create table peliculas (idpelicula text, titulo text, año text, duracion text, rating Decimal(4,2), nvotos INT, PRIMARY KEY (idpelicula))");
+		statement.executeUpdate("create table peliculas (idpelicula text, titulo text, año text, duracion float8, rating Decimal(4,2), nvotos INT, PRIMARY KEY (idpelicula))");
 		c.commit();	
 	}
   
@@ -134,7 +134,7 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 	@Override
 	public List<Peliculas> selectAllDuration(double value) {
 	  List<Peliculas> filmList = new ArrayList<>();
-	  String sql = "SELECT * from peliculas";
+	  String sql = "SELECT duracion from peliculas";
 	  try (PreparedStatement pstmt = c.prepareStatement(sql)) {
 		  ResultSet rs = pstmt.executeQuery();
 		  c.commit();
