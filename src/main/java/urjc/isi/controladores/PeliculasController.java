@@ -65,6 +65,7 @@ public class PeliculasController {
 			output = ps.getAllPeliculasByActor(request.queryParams("actor"));
 		else 
 			output = ps.getAllPeliculas();
+			result = "pasa por el else" + result;
 		if(request.queryParams("format")!= null && request.queryParams("format").equals("json")) {
 			response.type("application/json");
 			JsonObject json = new JsonObject();
