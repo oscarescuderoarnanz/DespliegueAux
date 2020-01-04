@@ -95,24 +95,14 @@ public class PeliculasController {
 		List<Peliculas> output;
 		String result = "Saca algo";
 		
-		output = ps.getAllPeliculasByDuration(139);
+		output = ps.getAllPeliculasByDuration(139.0);
+	
 		
-		if(request.queryParams("format")!= null && request.queryParams("format").equals("json")) {
-			response.type("application/json");
-			JsonObject json = new JsonObject();
-			json.addProperty("status", "SUCCESS");
-			json.addProperty("serviceMessage", "La peticion se manejo adecuadamente");
-			JsonArray array = new JsonArray();
-			for(int i = 0; i < output.size(); i++) {
-				array.add(output.get(i).toJSONObject());;
-			}
-			json.add("output", array);
-			result = json.toString();
-		}else {
-			for(int i = 0; i < output.size(); i++) {
-			    result = result + output.get(i).toHTMLString() +"</br>";
-			}
+		for(int i = 0; i < output.size(); i++) {
+		    result = result + output.get(i).toHTMLString() +"</br>";
+		    result = result + "entramos";
 		}
+		
 		return result;
 	}
 	
