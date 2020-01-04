@@ -62,7 +62,7 @@ public class PeliculasController {
 		List<Peliculas> output;
 		String result = "";
 		String query = "";
-		double time;
+		
 		if(request.queryParams("actor")!= null) 
 			output = ps.getAllPeliculasByActor(request.queryParams("actor"));
 		else if(request.queryParams("time")!= null) {
@@ -76,12 +76,13 @@ public class PeliculasController {
 				result = t1 + "<br/>" + t2 + "<br/>" + result;
 				output = ps.getAllPeliculasByDuration(t1,t2);
 			}else {
-				char FirstCaracteres = query.charAt(0);
+				char FirstCaracteres = parts[0].charAt(0);
 				String mayor = ">";
 				String menor = "<";
 				char signomayor = mayor.charAt(0);
 				char signomenor = menor.charAt(0);
 				if (FirstCaracteres == signomayor) {
+					result = "entramos:\n " + result; 
 					String[] partsmayor = result.split(">");
 					String time1 = partsmayor[1];
 					double t1 = Double.parseDouble(time1);
