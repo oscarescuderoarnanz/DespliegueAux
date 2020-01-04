@@ -93,7 +93,7 @@ public class PeliculasController {
 	 */
 	public static String selectAllDuration(Request request, Response response) throws SQLException {
 		List<Peliculas> output;
-		String result = "Saca algo";
+		String result = "";
 		
 		output = ps.getAllPeliculasByDuration(139.0);
 	
