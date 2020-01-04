@@ -94,13 +94,17 @@ public class PeliculasController {
 	public static String selectAllDuration(Request request, Response response) throws SQLException {
 		List<Peliculas> output;
 		String result = "Saca algo";
+		String cadena = "";
 		
 		output = ps.getAllPeliculasByDuration(139.0);
 	
 		
 		for(int i = 0; i < output.size(); i++) {
-		    result = result + output.get(i).toHTMLString() +"</br>";
-		    result = result + "entramos";
+			cadena = output.get(i).toHTMLString();
+			String[] parts = cadena.split(" ");
+			cadena = parts[3];
+		    result = result + cadena +"</br>";
+		    //result = result + "entramos";
 		}
 		
 		return result;
