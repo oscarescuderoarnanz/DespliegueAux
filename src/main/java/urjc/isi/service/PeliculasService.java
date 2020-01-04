@@ -16,7 +16,7 @@ import urjc.isi.entidades.*;
 
 public class PeliculasService {
 	
-	private PeliculasDAOImpl pelisDAO ;
+	//private PeliculasDAOImpl pelisDAO ;
 	
 	/**
 	 * Constructor por defecto
