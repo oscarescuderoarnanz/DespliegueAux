@@ -82,12 +82,13 @@ public class PeliculasController {
 				char signomayor = mayor.charAt(0);
 				char signomenor = menor.charAt(0);
 				if (FirstCaracteres == signomayor) {
-					result = "entramos:\n " + result; 
+					result = "entramos en mayor:\n " + result; 
 					String[] partsmayor = result.split(">");
 					String time1 = partsmayor[1];
 					double t1 = Double.parseDouble(time1);
 					output = ps.getAllPeliculasByDuration(t1,0);
 				}else if(FirstCaracteres == signomenor) {
+					result = "entramos en menor:\n " + result; 
 					output = ps.getAllPeliculasByDuration(0,0);
 				}else {
 					result = "query erronea, pruebe a introducir ?time=num1-num2 ; donde num1 y num2 son números <br/>" + result;
