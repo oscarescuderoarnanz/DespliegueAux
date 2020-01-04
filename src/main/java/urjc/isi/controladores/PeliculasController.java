@@ -67,9 +67,21 @@ public class PeliculasController {
 			output = ps.getAllPeliculasByActor(request.queryParams("actor"));
 		else if(request.queryParams("time")!= null) {
 			query = request.queryParams("time");
-			time = Double.parseDouble(query);
-			result = query + "\n" + result;
-			output = ps.getAllPeliculasByDuration(time);
+			String[] parts = query.split("-");
+			int x = parts.length;
+			if(x == 2) {
+				String time1 = parts[0];
+				String time2 = parts[1];
+				double t1 = Double.parseDouble(time1);
+				double t2 = Double.parseDouble(time2);
+				result = t1 + "<br/>" + t2 + "<br/>" + result;
+				output = ps.getAllPeliculasByDuration(t1,t2);
+			}else {
+				result = "query erronea, pruebe a introducir ?time=num1-num2 ; donde num1 y num2 son números <br/>" + result;
+				output = ps.getAllPeliculasByDuration(0,0);
+			}
+
+			
 		}else 
 			output = ps.getAllPeliculas();
 		if(request.queryParams("format")!= null && request.queryParams("format").equals("json")) {
