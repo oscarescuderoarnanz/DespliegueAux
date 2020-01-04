@@ -99,7 +99,7 @@ public class PeliculasController {
 	
 		for(int i = 0; i < output.size(); i++) {
 		    result = result + output.get(i).toHTMLString()+"</br>";
-		    result = result + " -> entrams";
+		    //result = result + " -> entrams";
 		}
 		
 		return result;
