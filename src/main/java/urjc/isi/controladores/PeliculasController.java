@@ -83,7 +83,7 @@ public class PeliculasController {
 				char signomenor = menor.charAt(0);
 				if (FirstCaracteres == signomayor) {
 					result = "entramos en mayor:\n " + result; 
-					String[] partsmayor = result.split(">");
+					String[] partsmayor = query.split(">");
 					String time1 = partsmayor[1];
 					double t1 = Double.parseDouble(time1);
 					output = ps.getAllPeliculasByDuration(t1,0);
