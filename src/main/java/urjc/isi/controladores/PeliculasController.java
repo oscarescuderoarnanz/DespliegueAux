@@ -64,7 +64,7 @@ public class PeliculasController {
 		if(request.queryParams("actor")!= null) 
 			output = ps.getAllPeliculasByActor(request.queryParams("actor"));
 		else if(request.queryParams("time")!= null)
-			output = ps.getAllPeliculasByDuration(139.0);
+			output = ps.getAllPeliculasByDuration(Double.parseDouble(request.queryParams("time")));
 		else 
 			output = ps.getAllPeliculas();
 		if(request.queryParams("format")!= null && request.queryParams("format").equals("json")) {
@@ -86,31 +86,12 @@ public class PeliculasController {
 		return result;
 	}
 	
-
-	// Quitar y meter en selectAll
-	public static String selectAllDuration(Request request, Response response) throws SQLException {
-		List<Peliculas> output;
-		String result = "";
-		
-		if(request.queryParams("time")!= null)
-			output = ps.getAllPeliculasByDuration(139.0);
-		else
-			output = ps.getAllPeliculas();
-		
-		
-		for(int i = 0; i < output.size(); i++) {
-		    result = result + output.get(i).toHTMLString()+"</br>";
-		}
-		
-		return result;
-	}
 	
 	/**
 	 * Metodo que se encarga de manejar todos los endpoints que cuelgan de /peliculasactores
 	 */
 	public void peliculasHandler() {
 		//get("/crearTabla", AdminController::crearTablaPeliculas);
-		get("/selectAllDuration", PeliculasController::selectAllDuration);
 		get("/selectAll", PeliculasController::selectAllPeliculas);
 		get("/uploadTable", PeliculasController::uploadTable);
 		post("/upload", PeliculasController::upload);
