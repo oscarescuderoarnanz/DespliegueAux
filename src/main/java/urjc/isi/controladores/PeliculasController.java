@@ -63,6 +63,8 @@ public class PeliculasController {
 		String result = "";
 		if(request.queryParams("actor")!= null) 
 			output = ps.getAllPeliculasByActor(request.queryParams("actor"));
+		else if(request.queryParams("time")!= null)
+			output = ps.getAllPeliculasByDuration(139.0);
 		else 
 			output = ps.getAllPeliculas();
 		if(request.queryParams("format")!= null && request.queryParams("format").equals("json")) {
@@ -84,24 +86,17 @@ public class PeliculasController {
 		return result;
 	}
 	
-	/**
-	 * Metodo encargado de manejar las peticiones a /peliculas/selectAll
-	 * @param request
-	 * @param response
-	 * @return Listado de peliculas que estan en la tabla Peliculas de la base de datos en formato HTML o JSON
-	 * @throws SQLException
-	 */
+
+	// Quitar y meter en selectAll
 	public static String selectAllDuration(Request request, Response response) throws SQLException {
 		List<Peliculas> output;
 		String result = "";
 		
-		if(request.queryParams("time")!= null) {
+		if(request.queryParams("time")!= null)
 			output = ps.getAllPeliculasByDuration(139.0);
-			result = "pasa por la query\n" + result;
-		}else {
+		else
 			output = ps.getAllPeliculas();
-			result = "pasa por el else\n" + result;
-		}
+		
 		
 		for(int i = 0; i < output.size(); i++) {
 		    result = result + output.get(i).toHTMLString()+"</br>";
