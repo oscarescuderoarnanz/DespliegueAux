@@ -102,9 +102,9 @@ public class PeliculasController {
 		}else {
 			output = ps.getAllPeliculas();
 		    result = "Lista completa de películas -" + request.queryParams() + "<br/>" + result;
-		    //if (request.queryParams() == null) {
-		    	//response.redirect("/peliculas/selectAll");
-		    //} 
+		    if (request.queryParams() == null) {
+		    	response.redirect("/peliculas/selectAll");
+		    } 
 		}
 		
 		if(request.queryParams("format")!= null && request.queryParams("format").equals("json")) {
