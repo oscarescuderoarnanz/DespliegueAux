@@ -101,8 +101,8 @@ public class PeliculasController {
 			}
 		}else {
 			output = ps.getAllPeliculas();
-		    result = "Lista completa de películas -" + request.queryParams() + "-<br/>" + result;
-		    if (request.url() != "https://appauxpruebas.herokuapp.com/peliculas/selectAll") {
+		    result = "Lista completa de películas -" + request.queryParams() + "<br/>" + result;
+		    if (request.queryParams() != null) {
 		    	response.redirect("/peliculas/selectAll");
 		    } 
 		}
