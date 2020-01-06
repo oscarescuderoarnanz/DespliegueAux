@@ -99,10 +99,11 @@ public class PeliculasController {
 					output = ps.getAllPeliculasByDuration(t1,0, "igual");
 				}
 			}
-		}else 
+		}else {
 			output = ps.getAllPeliculas();
 		    result = "Lista completa de películas" + result;
 		    response.redirect("/peliculas/selectAll");
+		}
 		
 		if(request.queryParams("format")!= null && request.queryParams("format").equals("json")) {
 			response.type("application/json");
