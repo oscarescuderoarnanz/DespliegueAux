@@ -102,7 +102,7 @@ public class PeliculasController {
 		}else {
 			output = ps.getAllPeliculas();
 		    result = "Lista completa de películas -" + request.queryParams().size() + "<br/>" + result;
-		    if (request.queryParams() == null) {
+		    if (request.queryParams().size() != 0) {
 		    	response.redirect("/peliculas/selectAll");
 		    } 
 		}
