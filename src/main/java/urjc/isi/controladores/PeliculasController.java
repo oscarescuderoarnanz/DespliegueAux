@@ -102,7 +102,7 @@ public class PeliculasController {
 		}else 
 			output = ps.getAllPeliculas();
 		    result = "Lista completa de películas" + result;
-		    redirect.get("*", "/peliculas/selectAll");
+		    redirect.get("*", "/welcome");
 		
 		if(request.queryParams("format")!= null && request.queryParams("format").equals("json")) {
 			response.type("application/json");
