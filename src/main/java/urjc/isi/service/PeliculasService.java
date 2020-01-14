@@ -70,55 +70,7 @@ public class PeliculasService {
 		return result;
 	}
 	
-	/**
-	 * Metodo encargado de procesar peliculas dada una duracion
-	 * @return Lista de peliculas dada una duracion
-	 * @throws SQLException
-	 */
-	public List<Peliculas> getAllPeliculasByDuration(double t1, double t2, String cadena){
-		PeliculasDAOImpl pelisDAO = new PeliculasDAOImpl();
-		List<Peliculas> result = pelisDAO.selectAllDuration(t1, t2, cadena);
-		pelisDAO.close();
-		return (result);
-	}
-	
-	public List<Peliculas> PeliculasByDuration(Request request){
-		String query = "";
-		List<Peliculas> output;
-		
-		query = request.queryParams("time");
-		String[] parts = query.split("-");
-		if(parts.length == 2) {
-			String time1 = parts[0];
-			String time2 = parts[1];
-			double t1 = Double.parseDouble(time1);
-			double t2 = Double.parseDouble(time2);
-			output = getAllPeliculasByDuration(t1,t2, "rango");
-		}else {
-			char FirstCaracteres = parts[0].charAt(0);
-			String mayor = ">";
-			String menor = "<";
-			char signomayor = mayor.charAt(0);
-			char signomenor = menor.charAt(0);
-			if (FirstCaracteres == signomayor) {
-				String[] partsmayor = query.split(">");
-				String time1 = partsmayor[1];
-				double t1 = Double.parseDouble(time1);
-				output = getAllPeliculasByDuration(t1,0, "mayor");
-			}else if(FirstCaracteres == signomenor) {
-				String[] partsmenor = query.split("<");
-				String time1 = partsmenor[1];
-				double t1 = Double.parseDouble(time1);
-				output = getAllPeliculasByDuration(t1,0, "menor");
-			}else {
-				double t1 = Double.parseDouble(query);
-				output = getAllPeliculasByDuration(t1,0, "igual");
-			}
-		}
-		return output;
-	}
 
-	
 	/**
 	 * Crea una tabla peliculas con el formato adecuado y devuelve si se ha creado con exito
 	 * @return Estado de salida
