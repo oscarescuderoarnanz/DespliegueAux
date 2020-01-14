@@ -15,14 +15,14 @@ import urjc.isi.dao.implementaciones.PeliculasDAOImpl;
 import urjc.isi.entidades.*;
 
 public class PeliculasService {
-
+	
 	private PeliculasDAOImpl pelisDAO ;
-
+	
 	/**
 	 * Constructor por defecto
 	 */
 	public PeliculasService() {}
-
+	
 	/**
 	 * Metodo encargado de procesar la subida de los registros de la tabla Peliculas
 	 * @param req
@@ -45,7 +45,7 @@ public class PeliculasService {
 		return result;
 	}
 
-
+	
 	/**
 	 * Metodo encargado de procesar un selectAll de la tabla Peliculas
 	 * @return Lista de actores de la tabla Peliculas
@@ -57,7 +57,7 @@ public class PeliculasService {
 		pelisDAO.close();
 		return result;
 	}
-
+	
 	/**
 	 * Metodo encargado de procesar un la salida de todas la lista con todas las peliculas de un actor
 	 * @return Lista de actores de la tabla Actores
@@ -66,22 +66,6 @@ public class PeliculasService {
 	public List<Peliculas> getAllPeliculasByActor(String name){
 		PeliculasDAOImpl pelisDAO = new PeliculasDAOImpl();
 		List<Peliculas> result = pelisDAO.selectAllWhereActor(name);
-		pelisDAO.close();
-		return result;
-	}
-
-	/** Procesa todas las peliculas de un director **/
-	public List<Peliculas> getAllPeliculasbyDirector(String name){
-		PeliculasDAOImpl pelisDAO = new PeliculasDAOImpl();
-		List<Peliculas> result = pelisDAO.selectAllWhereDirector(name);
-		pelisDAO.close();
-		return result;
-	}
-
-	/** Procesa todas las peliculas de un guionista **/
-	public List<Peliculas> getAllPeliculasbyGuionista(String name){
-		PeliculasDAOImpl pelisDAO = new PeliculasDAOImpl();
-		List<Peliculas> result = pelisDAO.selectAllWhereGuionista(name);
 		pelisDAO.close();
 		return result;
 	}
@@ -97,9 +81,44 @@ public class PeliculasService {
 		pelisDAO.close();
 		return (result);
 	}
+	
+	public List<Peliculas> PeliculasByDuration(Request request){
+		String query = "";
+		List<Peliculas> output;
+		
+		query = request.queryParams("time");
+		String[] parts = query.split("-");
+		if(parts.length == 2) {
+			String time1 = parts[0];
+			String time2 = parts[1];
+			double t1 = Double.parseDouble(time1);
+			double t2 = Double.parseDouble(time2);
+			output = getAllPeliculasByDuration(t1,t2, "rango");
+		}else {
+			char FirstCaracteres = parts[0].charAt(0);
+			String mayor = ">";
+			String menor = "<";
+			char signomayor = mayor.charAt(0);
+			char signomenor = menor.charAt(0);
+			if (FirstCaracteres == signomayor) {
+				String[] partsmayor = query.split(">");
+				String time1 = partsmayor[1];
+				double t1 = Double.parseDouble(time1);
+				output = getAllPeliculasByDuration(t1,0, "mayor");
+			}else if(FirstCaracteres == signomenor) {
+				String[] partsmenor = query.split("<");
+				String time1 = partsmenor[1];
+				double t1 = Double.parseDouble(time1);
+				output = getAllPeliculasByDuration(t1,0, "menor");
+			}else {
+				double t1 = Double.parseDouble(query);
+				output = getAllPeliculasByDuration(t1,0, "igual");
+			}
+		}
+		return output;
+	}
 
-
-
+	
 	/**
 	 * Crea una tabla peliculas con el formato adecuado y devuelve si se ha creado con exito
 	 * @return Estado de salida

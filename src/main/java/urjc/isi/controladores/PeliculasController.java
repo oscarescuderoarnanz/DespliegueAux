@@ -18,14 +18,14 @@ public class PeliculasController {
 
 	private static PeliculasService ps;
 	private static String adminkey = "1234";
-
+	
 	/**
 	 * Constructor por defecto
 	 */
 	public PeliculasController() {
 		ps = new PeliculasService();
 	}
-
+	
 	/**
 	 * Maneja las peticiones que llegan al endpoint /peliculas/uploadTable
 	 * @param request
@@ -36,11 +36,11 @@ public class PeliculasController {
 		if(!adminkey.equals(request.queryParams("key"))) {
 			response.redirect("/welcome"); //Se necesita pasar un parametro (key) para poder subir la tabla
 		}
-		return "<form action='/peliculas/upload' method='post' enctype='multipart/form-data'>"
+		return "<form action='/peliculas/upload' method='post' enctype='multipart/form-data'>" 
 			    + "    <input type='file' name='uploaded_films_file' accept='.txt'>"
 			    + "    <button>Upload file</button>" + "</form>";
 	}
-
+	
 	/**
 	 * Metodo que se encarga de manejar las peticiones a /peliculas/upload
 	 * @param request
@@ -50,7 +50,7 @@ public class PeliculasController {
 	public static String upload(Request request, Response response) {
 		return ps.uploadTable(request);
 	}
-
+	
 	/**
 	 * Metodo encargado de manejar las peticiones a /peliculas/selectAll
 	 * @param request
@@ -61,51 +61,12 @@ public class PeliculasController {
 	public static String selectAllPeliculas(Request request, Response response) throws SQLException {
 		List<Peliculas> output;
 		String result = "";
-		String query = "";
-		
-		if(request.queryParams("actor")!= null)
+		if(request.queryParams("actor")!= null) 
 			output = ps.getAllPeliculasByActor(request.queryParams("actor"));
-		else if(request.queryParams("time")!= null) {
-			query = request.queryParams("time");
-			String[] parts = query.split("-");
-			if(parts.length == 2) {
-				String time1 = parts[0];
-				String time2 = parts[1];
-				double t1 = Double.parseDouble(time1);
-				double t2 = Double.parseDouble(time2);
-				if(t1 > t2) {
-					result = "El rango debe ser el primer número menor que el segundo, ejemplo: ?time=118-120" + "<br/>" + result;
-				}
-				output = ps.getAllPeliculasByDuration(t1,t2, "rango");
-			}else {
-				char FirstCaracteres = parts[0].charAt(0);
-				String mayor = ">";
-				String menor = "<";
-				char signomayor = mayor.charAt(0);
-				char signomenor = menor.charAt(0);
-				if (FirstCaracteres == signomayor) {
-					String[] partsmayor = query.split(">");
-					String time1 = partsmayor[1];
-					double t1 = Double.parseDouble(time1);
-					output = ps.getAllPeliculasByDuration(t1,0, "mayor");
-				}else if(FirstCaracteres == signomenor) {
-					String[] partsmenor = query.split("<");
-					String time1 = partsmenor[1];
-					double t1 = Double.parseDouble(time1);
-					output = ps.getAllPeliculasByDuration(t1,0, "menor");
-				}else {
-					double t1 = Double.parseDouble(query);
-					output = ps.getAllPeliculasByDuration(t1,0, "igual");
-				}
-			}
-		}else  {
+		else if(request.queryParams("time")!= null) 
+			output = ps.PeliculasByDuration(request);
+		else 
 			output = ps.getAllPeliculas();
-			//result = "Lista completa de películas -" + request.queryParams().size() + "<br/>" + result;
-		    if (request.queryParams().size() != 0) {
-		    	response.redirect("/peliculas/selectAll");
-		    } 
-		}
-		
 		if(request.queryParams("format")!= null && request.queryParams("format").equals("json")) {
 			response.type("application/json");
 			JsonObject json = new JsonObject();
@@ -125,8 +86,6 @@ public class PeliculasController {
 		return result;
 	}
 	
-
-
 	/**
 	 * Metodo que se encarga de manejar todos los endpoints que cuelgan de /peliculasactores
 	 */
@@ -136,5 +95,5 @@ public class PeliculasController {
 		get("/uploadTable", PeliculasController::uploadTable);
 		post("/upload", PeliculasController::upload);
 	}
-
+	
 }
