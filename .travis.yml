@@ -3,8 +3,6 @@ deploy:
   skip_cleanup: true
   provider: heroku
   app: appauxpruebas
-  services:
-    - postgresql
   on:
     all_branch: true
   api_key:
