@@ -146,16 +146,22 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 					//conditions.get("duracion").charAt(0);
 					//conditions.get("duracion").substring(1, conditions.get("duracion").length());
 					//cond+= "duracion ="+conditions.get("duracion").charAt(0) + " '" + conditions.get("duracion").substring(1, conditions.get("duracion").length()) + "'";
-					String a = conditions.get("duracion");
-					String x = a.replaceAll("[<]", "");
-					double y = Double.parseDouble(x);
-					cond+= "p.duracion =< " + "'" + y + "'";
+					//String a = conditions.get("duracion");
+					//String x = a.replaceAll("[<]", "");
+					//double y = Double.parseDouble(x);
+					//cond+= "p.duracion =< " + "'" + y + "'";
 					//if(conditions.get("duracion").indexOf("-") == -1) {
 						//cond+= "p.duracion = "+"'"+conditions.get("duracion")+"'";
 					//} else {
 						//String[] years = conditions.get("duracion").split("-");
 						//cond+= "p.duracion >= " + "'" + years[0] + "'" + " and " + "p.duracion <= "+ "'"+ years[1] + "'" ;
 					//}
+					if(conditions.get("duracion").indexOf("-") == -1) {
+						cond+= "p.duracion = "+"'"+conditions.get("duracion")+"'";
+					} else {
+						String[] duracion = conditions.get("duracion").split("-");
+						cond+= "p.duracion >= " + "'" + duracion[0] + "'" + " and " + "p.duracion <= "+ "'"+ duracion[1] + "'" ;
+					}
 					break;
 				case "adultos":
 					if(conditions.get("adultos").equals("si"))
