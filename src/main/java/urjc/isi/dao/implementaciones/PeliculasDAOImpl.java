@@ -143,7 +143,7 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 				case "duracion":
 					//String[] partsmayor = conditions.get("duracion").split(">");
 					//double a = Double.parseDouble(partsmayor[1]);
-					cond+= "p.duracion>="+ "100" ;
+					cond+= "duracion>="+ "'" + 100 + "'";
 					break;
 				case "adultos":
 					if(conditions.get("adultos").equals("si"))
