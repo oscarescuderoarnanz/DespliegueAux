@@ -158,7 +158,8 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 					//}
 					if(conditions.get("duracion").indexOf("-") == -1) {
 						cond+= "p.duracion = "+"'"+conditions.get("duracion")+"'";
-					}else if(conditions.get("duracion").indexOf("<") == 0) {
+					} 
+					if(conditions.get("duracion").indexOf("<") == 0) {
 						//cond+= "p.duracion <= "+"'"+conditions.get("duracion").split("<")[1]+"'";
 						cond+= "p.duracion >= " + "'"+ 189+ "'";
 					}else if(conditions.get("duracion").indexOf(">") == 0){
