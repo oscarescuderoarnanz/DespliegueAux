@@ -97,7 +97,8 @@ public class PeliculasController {
 			    result = result + output.get(i).toHTMLString() +"</br>";
 			}
 		}
-		return filter.keys() + "<br/>" + filter.get("duracion").indexOf("<") + "<br/>" + result;
+		Enumeration<String> k = filter.keys();
+		return k.nextElement() + "<br/>" + filter.get("duracion").indexOf("<") + "<br/>" + result;
 	}
 	
 	public static String selectAllRanking(Request request, Response response) throws SQLException {
