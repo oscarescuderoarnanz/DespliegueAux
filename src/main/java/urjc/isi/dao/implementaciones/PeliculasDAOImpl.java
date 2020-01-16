@@ -142,7 +142,7 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 					break;
 				case "duracion":
 					String[] partsmayor = conditions.get("duracion").split(">");
-					double a = Double.parseDouble(partsmayor[1]);
+					double a = Double.parseDouble(partsmayor[0]);
 					cond+= "duracion>="+ "'" + a + "'";
 					break;
 				case "adultos":
