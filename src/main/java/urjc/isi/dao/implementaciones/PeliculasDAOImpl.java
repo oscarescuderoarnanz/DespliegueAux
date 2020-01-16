@@ -156,15 +156,15 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 						//String[] years = conditions.get("duracion").split("-");
 						//cond+= "p.duracion >= " + "'" + years[0] + "'" + " and " + "p.duracion <= "+ "'"+ years[1] + "'" ;
 					//}
-					if(conditions.get("duracion").indexOf("-") == -1) {
-						cond+= "p.duracion = "+"'"+conditions.get("duracion")+"'";
-					} 
+					
 					if(conditions.get("duracion").indexOf("<") == 0) {
 						//cond+= "p.duracion <= "+"'"+conditions.get("duracion").split("<")[1]+"'";
 						cond+= "p.duracion >= " + "'"+ 189+ "'";
 					}else if(conditions.get("duracion").indexOf(">") == 0){
 						//cond+= "p.duracion >= "+"'"+conditions.get("duracion").split(">")[1]+"'";
 						cond+= "p.duracion <= " + "'"+ 189+ "'";
+					} else if (conditions.get("duracion").indexOf("-") == -1) {
+						cond+= "p.duracion = "+"'"+conditions.get("duracion")+"'";
 					} else {
 						String[] duracion = conditions.get("duracion").split("-");
 						cond+= "p.duracion >= " + "'" + duracion[0] + "'" + " and " + "p.duracion <= "+ "'"+ duracion[1] + "'" ;
