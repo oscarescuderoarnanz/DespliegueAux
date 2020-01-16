@@ -121,7 +121,6 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 	@Override
 	public List<Peliculas> selectAll(Dictionary<String,String> conditions){
 		List<Peliculas> filmList = new ArrayList<>();
-		String querysql;
 		String sql = "SELECT * from peliculas as p ";
 		String cond = "WHERE ";
 		for(Enumeration<String> k = conditions.keys(); k.hasMoreElements();) {
@@ -143,17 +142,6 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 					break;
 				case "duracion":
 					cond+= "p.duracion>"+"'"+conditions.get("duracion")+"'";
-					if(conditions.get("duracion").length() == 1) {
-						querysql = conditions.get("duracion");
-						char simbolo = querysql.charAt(0);
-						if(simbolo == '>') {
-							String[] partsmayor = querysql.split(">");
-							String time1 = partsmayor[1];
-							double t1 = Double.parseDouble(time1);
-							cond+= "p.duracion>"+ t1 + " ORDER BY ASC";
-						}
-						
-					}
 					break;
 				case "adultos":
 					if(conditions.get("adultos").equals("si"))
@@ -203,7 +191,7 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 		}
 		return bestList;
 	}
-	
+
 	@Override
 	public List<Peliculas> selectByRanking(Dictionary<String,String> conditions){
 		List<Peliculas> filmList = new ArrayList<>();
