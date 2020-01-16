@@ -140,23 +140,7 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 						 "Inner join guionistas as g on pg.idpersona=g.idpersona ";
 					cond+= "g.fullnombre LIKE "+"'"+conditions.get("guionista")+"'";
 					break;
-				case "duracion":
-					//String[] partsmayor = conditions.get("duracion").split(">");
-					//double a = Double.parseDouble(partsmayor[1]);
-					//conditions.get("duracion").charAt(0);
-					//conditions.get("duracion").substring(1, conditions.get("duracion").length());
-					//cond+= "duracion ="+conditions.get("duracion").charAt(0) + " '" + conditions.get("duracion").substring(1, conditions.get("duracion").length()) + "'";
-					//String a = conditions.get("duracion");
-					//String x = a.replaceAll("[<]", "");
-					//double y = Double.parseDouble(x);
-					//cond+= "p.duracion =< " + "'" + y + "'";
-					//if(conditions.get("duracion").indexOf("-") == -1) {
-						//cond+= "p.duracion = "+"'"+conditions.get("duracion")+"'";
-					//} else {
-						//String[] years = conditions.get("duracion").split("-");
-						//cond+= "p.duracion >= " + "'" + years[0] + "'" + " and " + "p.duracion <= "+ "'"+ years[1] + "'" ;
-					//}
-					
+				case "duracion":					
 					if(conditions.get("duracion").indexOf("<") == 0) {
 						//cond+= "p.duracion <= "+"'"+conditions.get("duracion").split("<")[1]+"'";
 						cond+= "p.duracion >= " + "'"+ 189+ "'";
