@@ -150,7 +150,7 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 							String[] partsmayor = querysql.split(">");
 							String time1 = partsmayor[1];
 							double t1 = Double.parseDouble(time1);
-							cond+= "p.duracion>"+ t1;
+							cond+= "p.duracion>"+ t1 + "ORDER BY ASC";
 						}
 						
 					}
