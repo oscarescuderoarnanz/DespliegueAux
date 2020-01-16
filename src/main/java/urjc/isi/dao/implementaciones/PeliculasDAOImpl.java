@@ -141,7 +141,7 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 					cond+= "g.fullnombre LIKE "+"'"+conditions.get("guionista")+"'";
 					break;
 				case "duracion":
-					cond+= "p.duracion>"+"'"+conditions.get("duracion")+"'";
+					cond+= "p.duracion"+"'"+conditions.get("duracion")+"'";
 					break;
 				case "adultos":
 					if(conditions.get("adultos").equals("si"))
