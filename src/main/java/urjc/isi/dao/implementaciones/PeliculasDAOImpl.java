@@ -191,7 +191,7 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 		}
 		return bestList;
 	}
-
+	
 	@Override
 	public List<Peliculas> selectByRanking(Dictionary<String,String> conditions){
 		List<Peliculas> filmList = new ArrayList<>();
