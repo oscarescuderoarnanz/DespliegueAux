@@ -145,7 +145,7 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 					//double a = Double.parseDouble(partsmayor[1]);
 					//conditions.get("duracion").charAt(0);
 					//conditions.get("duracion").substring(1, conditions.get("duracion").length());
-					cond+= "duracion ="+Character.toString(conditions.get("duracion").charAt(0)) + " '" + Double.parseDouble(conditions.get("duracion").substring(1, conditions.get("duracion").length())) + "'";
+					cond+= "duracion ="+conditions.get("duracion").charAt(0) + " '" + conditions.get("duracion").substring(1, conditions.get("duracion").length()) + "'";
 					
 					//if(conditions.get("duracion").indexOf("-") == -1) {
 						//cond+= "p.duracion = "+"'"+conditions.get("duracion")+"'";
