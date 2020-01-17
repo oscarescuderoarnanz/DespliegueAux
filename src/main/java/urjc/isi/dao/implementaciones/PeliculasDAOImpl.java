@@ -121,7 +121,13 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 	@Override
 	public List<Peliculas> selectAll(Dictionary<String,String> conditions){
 		List<Peliculas> filmList = new ArrayList<>();
-		String sql = "SELECT * from peliculas as p ";
+		String sql = "";
+		if(conditions.get("idioma") != null) {
+			sql = "SELECT * FROM (SELECT p.*, COALESCE(ti.tituloenidioma, p.titulo) as titulobueno from peliculas as p left join tituloidiomas as ti on p.idpelicula = ti.idpelicula and ti.idioma = '" + conditions.get("idioma") + "') as p ";
+		}else {
+			sql = "SELECT * from peliculas as p ";
+		}
+		
 		String cond = "WHERE ";
 		String order = "ORDER BY ";
 		boolean add_order = false;
@@ -165,7 +171,12 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 					if(conditions.get("adultos").equals("no"))
 						cond+= "calificacion::INTEGER = 0";
 				case "titulo":
-					cond+= "p.titulo like "+"'"+conditions.get("titulo")+"%'";
+					if(conditions.get("idioma") != null) {
+						cond+= "titulobueno like "+"'"+conditions.get("titulo")+"%'";
+					}else {
+						cond+= "p.titulo like "+"'"+conditions.get("titulo")+"%'";
+					}
+						
 					break;
 				case "year":
 					if(conditions.get("year").indexOf("-") == -1) {
@@ -174,6 +185,9 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 						String[] years = conditions.get("year").split("-");
 						cond+= "p.año >= " + "'" + years[0] + "'" + " and " + "p.año <= "+ "'"+ years[1] + "'" ;
 					}
+					break;
+				case "idioma":
+					cond+= "1 = 1";
 					break;
 				case "rating":
 					if(conditions.get("rating").indexOf("<") == 0) {
@@ -189,12 +203,13 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 						String[] rating = conditions.get("rating").split("-");
 						cond+= "p.rating >= " + "'" + rating[0] + "'" + " and " + "p.rating <= "+ "'"+ rating[1] + "'" ;
 					}
-					break;
+				
 			}
 			if(k.hasMoreElements()) {
 				cond+=" AND ";
 			}
 		}
+		System.out.println(sql+cond);
 		if(add_order) {
 			cond += order;
 		}
@@ -202,7 +217,11 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 			ResultSet rs = pstmt.executeQuery();
 			c.commit();
 			while(rs.next()){
-				filmList.add(fromResultSet(rs));
+				Peliculas peli = fromResultSet(rs);
+				if(conditions.get("idioma") != null) {
+					peli.setTitulo(rs.getString("titulobueno"));
+				}
+				filmList.add(peli);
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
