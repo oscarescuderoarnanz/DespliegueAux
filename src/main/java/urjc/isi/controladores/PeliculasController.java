@@ -275,8 +275,21 @@ public class PeliculasController {
 		output = ps.getfilmsbymood(filter);
 		
 		if(filter.isEmpty()) {
-			result = "Possible moods: <br/><br/> Feliz, triste, chill, atrevido, indiferente \n <br/>";
-			result = form + result;
+			//result = "Possible moods: <br/><br/> Feliz, triste, chill, atrevido, indiferente \n <br/>";
+			//result = form + result;
+			
+			String base = "<h1> <em>Listado de peliculas por género </em></h1> <br> <strong>Eliga uno o varios género</strong>";
+			String result2 = base + "<form action='/peliculas/filmsbymood' method='get' enctype='multipart/form-data'>" + "  <select name=\"genero\" size=\"20\"  multiple>\n";
+			{
+				for(int i = 0; i < output.size(); i++) {
+					String[] tokens= output.get(i).toHTMLString().split("\\s");
+						result2 = result2 + "<option value=\"" + tokens[1] + "\">" + tokens[1] + "</option>\n";
+				}
+					result2 = result2 + "  </select>\n" +
+					"  <input type=\"submit\" value=\"Filtrar\">"
+					+ "</form>";
+			}
+			return result2;
 		}
 
 		if(request.queryParams("format")!= null && request.queryParams("format").equals("json")) {
