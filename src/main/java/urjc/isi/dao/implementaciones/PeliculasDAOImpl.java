@@ -376,17 +376,17 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 	@Override
 	public List<Peliculas> selectMood(Dictionary<String,String> conditions){
 		List<Peliculas> filmList = new ArrayList<>();
-		String sql = "SELECT * from peliculas as p ";
+		//String sql = "SELECT * from peliculas as p ";
 		String cond = "WHERE ";
 		String order = "DESC LIMIT 20";
 		String n = "Drama";
+		String sql = "";
 		
-		sql+="Inner join peliculasgeneros as pg on p.idpelicula = pg.id_pelicula " +
-			 "Inner join generos as g on pg.genero = g.nombre ";
 		for(Enumeration<String> k = conditions.keys(); k.hasMoreElements();) {
 			switch(k.nextElement()) {
 				case "feliz":
-					cond+= "g.nombre = "+ "'" + n + "'";
+					sql="SELECT p.idpelicula, p.titulo , p.año , p.duracion , p.calificacion ,p.rating, p.nvotos from peliculas as p Inner join peliculasgeneros as pg on p.idpelicula = pg.id_pelicula Inner join generos as g on pg.genero = g.nombre WHERE g.nombre = "+"'" + n + "'";
+					
 					break;
 				case "triste":
 					cond+= "g.nombre IN ('Comedy', 'Musical', 'Animation')";
@@ -402,9 +402,10 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 					break;
 			}
 		}
-		cond += order;
+		//cond += order;
 
-		try (PreparedStatement pstmt = c.prepareStatement(sql+cond)) {
+	
+		try (PreparedStatement pstmt = c.prepareStatement(sql)) {
 			ResultSet rs = pstmt.executeQuery();
 			c.commit();
 			while(rs.next()){
