@@ -265,7 +265,7 @@ public class PeliculasController {
 		
 		String form = "Filtrar por: <br/><br/>"
 				+ "<form action='/peliculas/filmsbymood' method='get' enctype='multipart/form-data'>"
-				+ "Actor: <input type=text name=actor size=30><br/><br/>"
+				+ "Mood: <input type=text name=actor size=30><br/><br/>"
 				+ "<button type=submit>Enviar </button>"
 				+ "</form>";
 		
@@ -275,6 +275,7 @@ public class PeliculasController {
 		output = ps.getfilmsbymood(filter);
 		
 		if(filter.isEmpty()) {
+			result = "Possible moods: \n Feliz, triste, chill, atrevido, indiferente";
 			result = result + form;
 		}
 
