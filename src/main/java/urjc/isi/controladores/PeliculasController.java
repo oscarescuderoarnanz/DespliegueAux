@@ -289,7 +289,7 @@ public class PeliculasController {
 					"  <input type=\"submit\" value=\"Filtrar\">"
 					+ "</form>";
 			}
-			return result2;
+			return result2 + "<br/>" + output;
 		}
 
 		if(request.queryParams("format")!= null && request.queryParams("format").equals("json")) {
