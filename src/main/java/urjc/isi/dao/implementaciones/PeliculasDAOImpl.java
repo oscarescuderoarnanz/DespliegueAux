@@ -379,13 +379,14 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 		String sql = "SELECT * from peliculas as p ";
 		String cond = "WHERE ";
 		String order = "DESC LIMIT 20";
+		String n = "Drama";
 		
+		sql+="Inner join peliculasgeneros as pg on p.idpelicula = pg.id_pelicula " +
+			 "Inner join generos as g on pg.genero = g.nombre ";
 		for(Enumeration<String> k = conditions.keys(); k.hasMoreElements();) {
 			switch(k.nextElement()) {
 				case "feliz":
-					sql+="Inner join peliculasgeneros as pg on p.idpelicula = pg.id_pelicula " +
-						 "Inner join generos as g on pg.genero = g.nombre ";
-					cond+= "g.nombre LIKE 'Drama'";
+					cond+= "g.nombre = "+ "'" + n + "'";
 					break;
 				case "triste":
 					cond+= "g.nombre IN ('Comedy', 'Musical', 'Animation')";
