@@ -279,9 +279,15 @@ public class PeliculasController {
 			//result = form + result;
 			
 			String base = "<h1> <em>Listado de moods posibles </em></h1> <br>";
-			String result2 = base + "<form action='/peliculas/filmsbymood' method='get' enctype='multipart/form-data'>";
-			String form2 = "<select name=mood size=2>" + result2 + "<option>Feliz</option>" + result2 + "<option>Triste</option>" + result2 + "<option>Indiferente</option></select>";
-			return form2;
+			//String result2 = base + "<form action='/peliculas/filmsbymood' method='get' enctype='multipart/form-data'>";
+			//String form2 = "<select name=mood size=2>" + result2 + "<option>Feliz</option>" + result2 + "<option>Triste</option>" + result2 + "<option>Indiferente</option></select>";
+			String result2 = base + "<form action='/peliculas/filmsbymood' method='get' enctype='multipart/form-data'>" + "  <select name=\"mood\" size=\"20\"  multiple>\n";
+			String name = "feliz";
+			result2 = result2 + "<option value=\"" + name + "\">" + name + "</option>\n";
+			result2 = result2 + "  </select>\n" +
+					"  <input type=\"submit\" value=\"Filtrar\">"
+					+ "</form>";
+			return result2;
 		}
 		
 		if(request.queryParams("format")!= null && request.queryParams("format").equals("json")) {
