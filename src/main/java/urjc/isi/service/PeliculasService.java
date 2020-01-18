@@ -90,11 +90,18 @@ public class PeliculasService {
 		pelisDAO.close();
 		return result;
 	}
-
 	public List<Peliculas> getWorstORBestFilmBy(Dictionary<String,String> conditions) throws SQLException{
 		List<Peliculas> result;
 		PeliculasDAOImpl pelisDAO = new PeliculasDAOImpl();
 		result = pelisDAO.selectAllBestorWorstFilmByYear(conditions);
+		pelisDAO.close();
+		return result;
+	}
+	
+	public List<Peliculas> getfilmsbymood(Dictionary<String,String> conditions) throws SQLException{
+		List<Peliculas> result;
+		PeliculasDAOImpl pelisDAO = new PeliculasDAOImpl();
+		result = pelisDAO.selectMood(conditions);
 		pelisDAO.close();
 		return result;
 	}

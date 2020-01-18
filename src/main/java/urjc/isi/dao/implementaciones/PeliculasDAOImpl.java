@@ -308,7 +308,7 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 
 		return calificacion;
 	}
-
+  
 	@Override
 	public List<Peliculas> selectAllByGenero(String genero) {
 	  List<Peliculas> filmList = new ArrayList<>();
@@ -355,6 +355,47 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 						order = "ORDER BY p.rating ASC LIMIT 1";
 						break;
 					}
+			}
+		}
+		cond += order;
+
+		try (PreparedStatement pstmt = c.prepareStatement(sql+cond)) {
+			ResultSet rs = pstmt.executeQuery();
+			c.commit();
+			while(rs.next()){
+				filmList.add(fromResultSet(rs));
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return filmList;
+	}
+	
+	
+	//Estado posibles feliz, triste, atrevido, indiferente y chill by el jefe
+	@Override
+	public List<Peliculas> selectMood(Dictionary<String,String> conditions){
+		List<Peliculas> filmList = new ArrayList<>();
+		String sql = "SELECT * from peliculas as p ";
+		String cond = "WHERE ";
+		String order = "DESC LIMIT 20";
+		
+		for(Enumeration<String> k = conditions.keys(); k.hasMoreElements();) {
+			switch(k.nextElement()) {
+				case "feliz":
+					sql+="Inner join peliculasgeneros as pg on p.idpelicula = pg.genero " +
+						 "Inner join generos as g on pg.idpelicula = g.nombre ";
+					
+					cond+= "g.nombre IN (Comedy, Musical, Animation)";
+					
+				case "triste":
+						break;
+				case "atrevido":
+					break;
+				case "indiferente":
+					break;
+				case "chill":
+					break;
 			}
 		}
 		cond += order;
