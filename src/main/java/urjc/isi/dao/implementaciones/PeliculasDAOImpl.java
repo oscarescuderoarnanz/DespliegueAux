@@ -386,7 +386,7 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 					sql+="Inner join peliculasgeneros as pg on p.idpelicula = pg.genero " +
 						 "Inner join generos as g on pg.idpelicula = g.nombre ";
 					
-					cond+= "g.nombre IN (Comedy, Musical, Animation)";
+					cond+= "g.nombre IN ('Comedy', 'Musical', 'Animation')";
 					
 				case "triste":
 						break;
