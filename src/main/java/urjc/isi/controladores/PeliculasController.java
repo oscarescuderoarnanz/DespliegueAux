@@ -279,7 +279,7 @@ public class PeliculasController {
 			//result = form + result;
 			
 			String base = "<h1> <em>Listado de moods posibles </em></h1> <br>";
-			String result2 = base + "<form action='/peliculas/filmsbymood' method='get' enctype='multipart/form-data'>" + "  <select name=\"genero\" size=\"20\"  multiple>\n";
+			String result2 = base + "<form action='/peliculas/filmsbymood' method='get' enctype='multipart/form-data'>";
 			{
 				String form2 = "<select name=mood size=2>" + result2 + "<option>Feliz</option>" + result2 + "<option>Triste</option>" + result2 + "<option>Indiferente</option></select>";
 			return form2;
