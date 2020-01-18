@@ -385,7 +385,7 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 		for(Enumeration<String> k = conditions.keys(); k.hasMoreElements();) {
 			switch(k.nextElement()) {
 				case "feliz":
-					cond+= "g.nombre IN ('Comedy', 'Music')";
+					cond+= "g.nombre = 'Drama'";
 					break;
 				case "triste":
 					cond+= "g.nombre IN ('Comedy', 'Musical', 'Animation')";
