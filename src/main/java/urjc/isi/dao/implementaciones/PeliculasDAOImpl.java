@@ -378,13 +378,17 @@ public class PeliculasDAOImpl extends GenericDAOImpl<Peliculas> implements Pelic
 		List<Peliculas> filmList = new ArrayList<>();
 		String sql;
 		String cond = "WHERE ";
-		String order = "LIMIT 20";
+		String order = "ORDER BY p.rating DESC";
 		
 		sql="SELECT p.* from peliculas as p Inner join peliculasgeneros as pg on p.idpelicula = pg.id_pelicula Inner join generos as g on pg.genero = g.nombre ";
 		for(Enumeration<String> k = conditions.keys(); k.hasMoreElements();) {
 			switch(k.nextElement()) {
 				case "mood":
-					cond+= "g.nombre IN ('Comedy','Drama')";
+					switch(conditions.get("mood")) {
+						case "feliz":
+							cond+= "g.nombre IN ('Comedy','Drama')";
+							break;
+					}
 					break;
 			}
 		}
