@@ -263,25 +263,14 @@ public class PeliculasController {
 		String result = "";
 		Dictionary<String,String> filter = new Hashtable<String,String>();
 		
-		String form = "Filtrar por: <br/><br/>"
-				+ "<form action='/peliculas/filmsbymood' method='get' enctype='multipart/form-data'>"
-				+ "Mood: <input type=text name=mood size=30><br/><br/>"
-				+ "<button type=submit>Enviar </button>"
-				+ "</form>";
-		
 		if(request.queryParams("mood")!= null)
 			filter.put("mood",request.queryParams("mood"));
 
 		output = ps.getfilmsbymood(filter);
 		
 		if(filter.isEmpty()) {
-			//result = "Possible moods: <br/><br/> Feliz, triste, chill, atrevido, indiferente \n <br/>";
-			//result = form + result;
-			
 			String base = "<h1> <em>Listado de moods posibles </em></h1> <br>";
-			//String result2 = base + "<form action='/peliculas/filmsbymood' method='get' enctype='multipart/form-data'>";
-			//String form2 = "<select name=mood size=2>" + result2 + "<option>Feliz</option>" + result2 + "<option>Triste</option>" + result2 + "<option>Indiferente</option></select>";
-			String result2 = base + "<form action='/peliculas/filmsbymood' method='get' enctype='multipart/form-data'>" + "  <select name=\"mood\" size=\"20\"  multiple>\n";
+			String result2 = base + "<form action='/peliculas/filmsbymood' method='get' enctype='multipart/form-data'>" + "  <select name=\"mood\" size=\"5\"  multiple>\n";
 			String name = "feliz";
 			result2 = result2 + "<option value=\"" + name + "\">" + name + "</option>\n"; name = "triste";
 			result2 = result2 + "<option value=\"" + name + "\">" + name + "</option>\n"; name = "indiferente";
